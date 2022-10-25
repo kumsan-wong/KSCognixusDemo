@@ -1,0 +1,8 @@
+version: "1"
+services:
+ springboot-app:
+  container_name: kscognixus-container
+  image: kscognixus-demo-comp
+  build: .
+  ports:
+   - 8083:8083

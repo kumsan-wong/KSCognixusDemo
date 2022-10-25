@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.todo.ToDo;
+import com.example.demo.todo.exception.MissingReqParamException;
 import com.example.demo.todo.exception.ToDoNotFoundException;
 import com.example.demo.todo.repository.ToDoRepository;
 import com.example.demo.todo.repository.ToDoStatus;
@@ -38,6 +39,11 @@ public class ToDoService {
 	}
 	
 	public ToDo saveTodo(ToDo todo) {
+		if (todo.getName()==null || todo.getName().isEmpty())
+			throw new MissingReqParamException("name");
+		if (todo.getStatus()==null)
+			throw new MissingReqParamException("status");
+		
 		todo.setId(null);
 		todo.setInsertDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
 		todo.setUpdateDate(null);
